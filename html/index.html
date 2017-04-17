@@ -54,10 +54,14 @@
         context.strokeStyle="#000000";
 
         var roomList = generateRooms();
+
         for (var i = 0; i < roomList.length; i++)
           {
+            var width = roomList[i].x2 - roomList[i].x1;
+            var height = roomList[i].y2 - roomList[i].y1;
+
             context.beginPath();
-            context.rect(roomList[i].x, roomList[i].y, roomList[i].width, roomList[i].height);
+            context.rect(roomList[i].x1, roomList[i].y1, width, height);
             context.closePath();
             context.stroke();
           }
