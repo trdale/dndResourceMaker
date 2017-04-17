@@ -1,0 +1,74 @@
+<html>
+
+<head>
+
+</head>
+  <script type="text/javascript" src="/mapGen/roomGen.js"></script>
+<body>
+
+  <div>
+    <canvas id="mainCanvas" width="500" height="500" style="border:1px solid #000000;">
+    </canvas>
+  </div>
+
+  <br>
+
+  <div>
+    <button onclick="generateMap()">Generate Map</button>
+  </div>
+
+  <script>
+
+    var gridSize = 10;
+    var canvas = document.getElementById('mainCanvas');
+    var context = canvas.getContext("2d");
+
+    function generateMap()
+      {
+        //clear map
+        clearCanvas();
+
+        //set color to light grey for grid
+        context.strokeStyle="#D3D3D3";
+
+        //create grid line
+        for (var i = gridSize; i < canvas.height; i = i + gridSize)
+          {
+            context.beginPath();
+            context.moveTo(0, i);
+            context.lineTo(canvas.width, i);
+            context.closePath();
+            context.stroke();
+          }
+
+        for (var i = gridSize; i < canvas.width; i = i + gridSize)
+          {
+            context.beginPath();
+            context.moveTo(i, 0);
+            context.lineTo(i, canvas.height);
+            context.closePath();
+            context.stroke(); 
+          }
+
+        //set back to black for rooms
+        context.strokeStyle="#000000";
+
+        var roomList = generateRooms();
+        for (var i = 0; i < roomList.length; i++)
+          {
+            context.beginPath();
+            context.rect(roomList[i].x, roomList[i].y, roomList[i].width, roomList[i].height);
+            context.closePath();
+            context.stroke();
+          }
+      }; 
+
+    function clearCanvas()
+      {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+      };
+
+  </script>
+</body>
+
+</html>
